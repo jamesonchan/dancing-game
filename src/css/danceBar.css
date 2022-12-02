@@ -1,0 +1,31 @@
+.danceBar {
+  position: relative;
+  width: 300px;
+  height: 30px;
+  background-color: grey;
+}
+
+.danceBar_indicator {
+  position: absolute;
+  width: 5px;
+  height: 30px;
+  background-color: red;
+  z-index: 9999;
+  transition: linear 0.1s;
+}
+
+.danceBar_goodPointArea {
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  background-color: yellow;
+  right: 30px;
+}
+
+.danceBar_perfectPointArea {
+  position: absolute;
+  width: 10px;
+  height: 30px;
+  background-color: green;
+  right: 35px;
+}
