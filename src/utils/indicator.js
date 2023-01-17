@@ -1,5 +1,8 @@
 class Indicator {
-  static calculateindicatorPosition(indicatorPosition) {
+
+  static indicatorBound = {}
+
+  static calculateIndicatorPosition(indicatorPosition) {
     let pointResult;
 
     if (indicatorPosition <= 250 || indicatorPosition >= 270) {

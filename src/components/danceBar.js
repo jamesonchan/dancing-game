@@ -36,17 +36,12 @@ function DanceBar({}) {
 
   const [indicatorPosition, setIndicatorPosition] = useDanceBarProgress();
 
-  const handleKeyOnDown = useCallback(
-    (e) => {
+  const handleKeyOnDown = useCallback((e) => {
       if (e.keyCode === 32) {
-        setIndicatorStatus(
-          Indicator.calculateindicatorPosition(indicatorPosition)
-        );
+        setIndicatorStatus(Indicator.calculateIndicatorPosition(indicatorPosition));
         setIndicatorPosition(0);
       }
-    },
-    [indicatorPosition, setIndicatorPosition]
-  );
+    }, [indicatorPosition, setIndicatorPosition]);
 
   useEffect(() => {
     danceBarRef.current.focus();
@@ -60,10 +55,7 @@ function DanceBar({}) {
         tabIndex={-1}
         onKeyDown={handleKeyOnDown}
       >
-        <div
-          className="danceBar_indicator"
-          style={{ left: `${indicatorPosition}px` }}
-        ></div>
+        <div className="danceBar_indicator" style={{ left: `${indicatorPosition}px` }}></div>
         <div className="danceBar_goodPointArea"></div>
         <div className="danceBar_perfectPointArea"></div>
       </div>
