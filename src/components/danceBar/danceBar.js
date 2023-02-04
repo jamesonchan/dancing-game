@@ -1,9 +1,8 @@
 import { PropTypes } from "prop-types";
 import { useCallback, useEffect, useState, useRef } from "react";
-import "../css/danceBar.css";
+import "../../css/danceBar.css";
 import Indicator from "../../utils/indicator";
-
-DanceBar.propTypes = {};
+import IndicatorStatus from "./indicatorStatus";
 
 function useDanceBarProgress() {
   const [indicatorPosition, setIndicatorPosition] = useState(0);
@@ -30,17 +29,22 @@ function useDanceBarProgress() {
   return [indicatorPosition, setIndicatorPosition];
 }
 
+DanceBar.propTypes = {};
+
 function DanceBar({}) {
   const [indicatorStatus, setIndicatorStatus] = useState("");
+  const [streak, setStreak] = useState([]);
   const danceBarRef = useRef(null);
 
   const [indicatorPosition, setIndicatorPosition] = useDanceBarProgress();
 
-  const handleKeyOnDown = useCallback((e) => {
-      if (e.keyCode === 32) {
-        setIndicatorStatus(Indicator.calculateIndicatorPosition(indicatorPosition));
-        setIndicatorPosition(0);
-      }
+  const handleKeyOnDown = useCallback(event => {
+    const performance = Indicator.getPerformance(indicatorPosition);
+    if (event.keyCode === 32) {
+      setIndicatorStatus(performance);
+      setStreak([...streak, performance]);
+      setIndicatorPosition(0);
+    }
     }, [indicatorPosition, setIndicatorPosition]);
 
   useEffect(() => {
@@ -59,7 +63,9 @@ function DanceBar({}) {
         <div className="danceBar_goodPointArea"></div>
         <div className="danceBar_perfectPointArea"></div>
       </div>
-      <p>{indicatorStatus}</p>
+      <IndicatorStatus 
+        indicatorStatus={indicatorStatus}
+        streak={streak} />
     </>
   );
 }

@@ -7,22 +7,41 @@ class Indicator {
     MAX_PERFECT_BOUND: 265
   })
 
-  calculateIndicatorPosition(indicatorPosition) {
+  indicatorPerformance = Object.freeze({
+    MISS: "Missed!",
+    GOOD: "Good!",
+    PERFECT: "Perfect!"
+  })
+
+  getPerformance(indicatorPosition) {
     let pointResult;
 
     if (indicatorPosition <= this.indicatorBoundary.MIN_GOOD_BOUND || indicatorPosition >= this.indicatorBoundary.MAX_GOOD_BOUND) {
-      pointResult = "Missed!";
+      pointResult = this.indicatorPerformance.MISS;
     }
 
     if (indicatorPosition >= this.indicatorBoundary.MIN_GOOD_BOUND && indicatorPosition <= this.indicatorBoundary.MAX_GOOD_BOUND) {
-      pointResult = "Good!";
+      pointResult = this.indicatorPerformance.GOOD;
     }
 
     if (indicatorPosition >= this.indicatorBoundary.MIN_PERFECT_BOUND && indicatorPosition <= this.indicatorBoundary.MAX_PERFECT_BOUND) {
-      pointResult = "Perfect!";
+      pointResult = this.indicatorPerformance.PERFECT;
     }
 
     return pointResult;
+  }
+
+  getStreak(statusArr) {
+    let counter = 0;
+    statusArr.forEach(status => {
+      if(status === this.indicatorPerformance.MISS) {
+        counter = 0;
+      }
+      else {
+        counter++;
+      }
+    })
+    return counter;
   }
 }
 
