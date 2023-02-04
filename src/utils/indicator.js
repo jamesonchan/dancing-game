@@ -1,19 +1,24 @@
 class Indicator {
 
-  static indicatorBound = {}
+  indicatorBoundary = Object.freeze({
+    MIN_GOOD_BOUND: 250,
+    MAX_GOOD_BOUND: 270,
+    MIN_PERFECT_BOUND: 255,
+    MAX_PERFECT_BOUND: 265
+  })
 
-  static calculateIndicatorPosition(indicatorPosition) {
+  calculateIndicatorPosition(indicatorPosition) {
     let pointResult;
 
-    if (indicatorPosition <= 250 || indicatorPosition >= 270) {
+    if (indicatorPosition <= this.indicatorBoundary.MIN_GOOD_BOUND || indicatorPosition >= this.indicatorBoundary.MAX_GOOD_BOUND) {
       pointResult = "Missed!";
     }
 
-    if (indicatorPosition >= 250 && indicatorPosition <= 270) {
+    if (indicatorPosition >= this.indicatorBoundary.MIN_GOOD_BOUND && indicatorPosition <= this.indicatorBoundary.MAX_GOOD_BOUND) {
       pointResult = "Good!";
     }
 
-    if (indicatorPosition >= 255 && indicatorPosition <= 265) {
+    if (indicatorPosition >= this.indicatorBoundary.MIN_PERFECT_BOUND && indicatorPosition <= this.indicatorBoundary.MAX_PERFECT_BOUND) {
       pointResult = "Perfect!";
     }
 
@@ -21,4 +26,4 @@ class Indicator {
   }
 }
 
-export default Indicator;
+export default new Indicator();

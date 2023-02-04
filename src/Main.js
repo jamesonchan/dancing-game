@@ -1,4 +1,4 @@
-import DanceBar from "./components/danceBar";
+import DanceBar from "./components/danceBar/danceBar";
 
 function Main() {
   return (
