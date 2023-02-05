@@ -43,6 +43,19 @@ class Indicator {
     })
     return counter;
   }
+
+  getScore(statusArr) {
+    let score = 0;
+    statusArr.forEach(status => {
+      if(status === this.indicatorPerformance.GOOD) {
+        score++;
+      }
+      if(status === this.indicatorPerformance.PERFECT) {
+        score += 2;
+      }
+    })
+    return score;
+  }
 }
 
 export default new Indicator();

@@ -6,6 +6,8 @@ import IndicatorStatus from "./indicatorStatus";
 
 function useDanceBarProgress() {
   const [indicatorPosition, setIndicatorPosition] = useState(0);
+  const [indicatorStatus, setIndicatorStatus] = useState("");
+  const [streak, setStreak] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,6 +21,8 @@ function useDanceBarProgress() {
     if (indicatorPosition >= 300) {
       clearInterval(interval);
       setIndicatorPosition(0);
+      setIndicatorStatus(Indicator.indicatorPerformance.MISS);
+      setStreak([...streak, Indicator.getPerformance(indicatorPosition)])
     }
 
     return () => {
@@ -26,17 +30,29 @@ function useDanceBarProgress() {
     };
   }, [indicatorPosition]);
 
-  return [indicatorPosition, setIndicatorPosition];
+  return [
+    indicatorPosition, 
+    indicatorStatus,
+    streak,
+    setIndicatorPosition,
+    setIndicatorStatus,
+    setStreak
+  ];
 }
 
 DanceBar.propTypes = {};
 
 function DanceBar({}) {
-  const [indicatorStatus, setIndicatorStatus] = useState("");
-  const [streak, setStreak] = useState([]);
   const danceBarRef = useRef(null);
 
-  const [indicatorPosition, setIndicatorPosition] = useDanceBarProgress();
+  const [
+    indicatorPosition, 
+    indicatorStatus,
+    streak,
+    setIndicatorPosition,
+    setIndicatorStatus,
+    setStreak
+  ] = useDanceBarProgress();
 
   const handleKeyOnDown = useCallback(event => {
     const performance = Indicator.getPerformance(indicatorPosition);

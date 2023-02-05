@@ -15,6 +15,7 @@ function IndicatorStatus({
     return (
         <div>
             <p>{indicatorStatus}{streakCounter > 1 && ` x${streakCounter}`}</p>
+            <p>Score: {Indicator.getScore(streak)}</p>
         </div>
     )
 }
